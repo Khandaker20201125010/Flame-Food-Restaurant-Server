@@ -32,12 +32,17 @@ async function run() {
 
 
     app.post('/restaurant',async(req,res)=>{
-        const newTRestaurant = req.body;
-        console.log(newRestaurant);
-        const result = await  restaurantCollection.insertOne();
+        const addFood = req.body;
+        console.log(addFood);
+        const result = await  restaurantCollection.insertOne(addFood);
         res.send(result);
   
       })
+      app.get('/restaurant', async (req, res) => {
+        const cursor = restaurantCollection.find();
+        const result = await cursor.toArray();
+        res.send(result);
+    })
 
 
 
