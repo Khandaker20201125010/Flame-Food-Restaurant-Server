@@ -58,14 +58,19 @@ async function run() {
                     buyerName:updatedFood.buyerName,
                     Image:updatedFood.Image,
                     isSold: true,
-                    buyersEmail:updatedFood.buyersEmail 
+                    buyersEmail:updatedFood.buyersEmail ,
+                    time:updatedFood.time
                 }
             }
             const result = await restaurantCollection.updateOne(filter, food)
             res.send(result)
 
         })
-
+        app.get("/restaurant/:email",async(req,res)=>{
+            console.log(req.params.email);
+            const result = await toursimCollection.find({email:req.params.email}).toArray();
+            res.send(result)
+           })
 
 
 
