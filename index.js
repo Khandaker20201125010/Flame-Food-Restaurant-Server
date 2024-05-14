@@ -59,7 +59,8 @@ async function run() {
                     Image:updatedFood.Image,
                     isSold: true,
                     buyersEmail:updatedFood.buyersEmail ,
-                    time:updatedFood.time
+                    time:updatedFood.time,
+                    preview:updatedFood.preview
                 }
             }
             const result = await restaurantCollection.updateOne(filter, food)
@@ -68,9 +69,41 @@ async function run() {
         })
         app.get("/restaurant/:email",async(req,res)=>{
             console.log(req.params.email);
-            const result = await toursimCollection.find({email:req.params.email}).toArray();
+            const result = await restaurantCollection.find({email:req.params.email}).toArray();
             res.send(result)
            })
+           app.put('/restaurant/place/:id', async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: new ObjectId(id) };
+            const options = { upsert: true };
+            const updatedFood = req.body;
+            const food = {
+                $set: {
+                    foodName:updatedFood.foodName,
+                    quantity:updatedFood.quantity ,
+                    shortDescription:updatedFood.shortDescription,
+                    price:updatedFood.price,
+                    foodCategory:updatedFood.foodCategory,
+                    Image:updatedFood.Image,
+                    country:updatedFood.country
+                }
+            }
+            const result = await restaurantCollection.updateOne(filter, food, options)
+            res.send(result);
+        })
+        app.get('/restaurant/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await restaurantCollection.findOne(query);
+            res.send(result)
+        })
+        app.get("/restaurant/place/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await restaurantCollection.findOne(query);
+            res.send(result);
+          });
+
 
 
 
