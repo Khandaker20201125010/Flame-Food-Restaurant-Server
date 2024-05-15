@@ -80,12 +80,12 @@ async function run() {
                     buyerName:updatedFood.buyerName,
                     Image:updatedFood.Image,
                     isSold: true,
-                    buyersEmail:updatedFood.buyersEmail 
+                    buyersEmail:updatedFood.buyersEmail, 
+                    time:updatedFood.time
                 }
             }
             const result = await restaurantCollection.updateOne(filter, food)
             res.send(result)
-
         })
 
         app.get('/restaurant/uptodate/:id', async (req, res) => {
