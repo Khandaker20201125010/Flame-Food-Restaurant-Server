@@ -87,30 +87,9 @@ async function run() {
             const result = await restaurantCollection.updateOne(filter, food)
             res.send(result)
         })
-        app.patch('/restaurant/update/:id', async (req, res) => {
-            const id = req.params.id;
-            const filter = { _id: new ObjectId(id) };
-            const updatedFood = req.body;
-            const food = {
-                $set: {
-                    foodName:updatedFood.foodName,
-                    quantity:updatedFood.quantity ,
-                    borrowedFoods:updatedFood.borrowedFoods,
-                    shortDescription:updatedFood.shortDescription,
-                    price:updatedFood.price,
-                    foodCategory:updatedFood.foodCategory,
-                    buyerName:updatedFood.buyerName,
-                    Image:updatedFood.Image,
-                    isSold: true,
-                    buyersEmail:updatedFood.buyersEmail, 
-                    time:updatedFood.time
-                }
-            }
-            const result = await restaurantCollection.updateOne(filter, food)
-            res.send(result)
-        })
+        
 
-        app.get("/restaurant/update/:id", async (req, res) => {
+        app.get("/restaurant/uptodate/:id", async (req, res) => {
             const id = req.params.id;
             const query = { _id: new ObjectId(id) };
             const result = await restaurantCollection.findOne(query);
